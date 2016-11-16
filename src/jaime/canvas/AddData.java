@@ -18,8 +18,7 @@ public class AddData extends javax.swing.JFrame {
 
     String header = "";
     String description = "";
-    Boolean listFlag = false;
-    ArrayList arrayListFlag = new ArrayList();
+    Boolean focusStatus = false;
 
     public String getHeader() {
         return header;
@@ -37,19 +36,12 @@ public class AddData extends javax.swing.JFrame {
         this.description = description;
     }
 
-    public void setListFlag(boolean value) {
-        listFlag = value;
+    public void setfocusStatus(boolean value) {
+        focusStatus = value;
     }
     
-    public boolean getListFlag() {
-        return listFlag;
-    }
-    
-    public void setArrayListFlag() {
-        for(int i = 0; i < 8; i++)
-        {
-            arrayListFlag.add(i, 0);
-        }
+    public boolean getfocusStatus() {
+        return focusStatus;
     }
     
     /**
@@ -77,9 +69,11 @@ public class AddData extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaAdd = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        btnAddDialog1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Añadir información");
+        setUndecorated(true);
 
         btnAddDialog.setText("Añadir");
         btnAddDialog.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +88,13 @@ public class AddData extends javax.swing.JFrame {
 
         jLabel1.setText("Descripción:");
 
+        btnAddDialog1.setText("Cancelar");
+        btnAddDialog1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddDialog1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,19 +103,19 @@ public class AddData extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jTextAdd)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnAddDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 114, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel1))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 114, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jTextAdd)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAddDialog1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAddDialog, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,8 +125,10 @@ public class AddData extends javax.swing.JFrame {
                     .addComponent(btnAddDialog)
                     .addComponent(jTextAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(btnAddDialog1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -137,9 +140,14 @@ public class AddData extends javax.swing.JFrame {
         // TODO add your handling code here:
         setHeader(jTextAdd.getText());
         setDescription(jTextAreaAdd.getText());
-        setListFlag(true);
+        setfocusStatus(true);
         dispose();
     }//GEN-LAST:event_btnAddDialogActionPerformed
+
+    private void btnAddDialog1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddDialog1ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnAddDialog1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,6 +186,7 @@ public class AddData extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddDialog;
+    private javax.swing.JButton btnAddDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextAdd;

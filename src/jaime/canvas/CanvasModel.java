@@ -1,6 +1,7 @@
 package jaime.canvas;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -9,11 +10,49 @@ import javax.swing.DefaultListModel;
  */
 public class CanvasModel extends javax.swing.JFrame {
 
-    DefaultListModel listModel = new DefaultListModel();
-    AddData dialog = new AddData();
+    DefaultListModel listModelPartners = new DefaultListModel();
+    DefaultListModel listModelActivities = new DefaultListModel();
+    DefaultListModel listModelResources = new DefaultListModel();
+    DefaultListModel listModelPurpose = new DefaultListModel();
+    DefaultListModel listModelRelations = new DefaultListModel();
+    DefaultListModel listModelChannels = new DefaultListModel();
+    DefaultListModel listModelClients = new DefaultListModel();
+    DefaultListModel listModelStreams = new DefaultListModel();
+    DefaultListModel listModelCosts = new DefaultListModel();
     
-    public void addListElements(String element) {
-        listModel.addElement(element);
+    DefaultListModel listModelPartnersDesc = new DefaultListModel();
+    DefaultListModel listModelActivitiesDesc = new DefaultListModel();
+    DefaultListModel listModelResourcesDesc = new DefaultListModel();
+    DefaultListModel listModelPurposeDesc = new DefaultListModel();
+    DefaultListModel listModelRelationsDesc = new DefaultListModel();
+    DefaultListModel listModelChannelsDesc = new DefaultListModel();
+    DefaultListModel listModelClientsDesc = new DefaultListModel();
+    DefaultListModel listModelStreamsDesc = new DefaultListModel();
+    DefaultListModel listModelCostsDesc = new DefaultListModel();
+    
+    
+    AddData dialog = new AddData();
+    String header = "";
+    String description = "";
+    int sectionId = 0;
+    int jlistIndex = -1;
+    
+    public void addListHeader(String header, DefaultListModel listModel) {
+        listModel.addElement(header);
+    }
+    
+    public void addListDescription(String description, DefaultListModel listModelDesc) {
+        listModelDesc.addElement(description);
+    }
+    
+    public void deleteListElements(javax.swing.JList<String> jlist, DefaultListModel listModel) {
+        jlistIndex = jlist.getSelectedIndex();
+        
+        if (jlistIndex >= 0) {
+            ((DefaultListModel) jlist.getModel()).removeElementAt(jlistIndex); 
+        }
+        else {
+        }
     }
     
     public void openDialog(AddData dialog) {
@@ -28,13 +67,118 @@ public class CanvasModel extends javax.swing.JFrame {
     public String getDialogHeader(AddData dialog) {
         return dialog.getHeader();
     }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(javax.swing.JList<String> jlist, DefaultListModel listModel) {
+        jlistIndex = jlist.getSelectedIndex();
+        
+        if (jlistIndex >= 0) {
+            this.header = ((DefaultListModel) jlist.getModel()).getElementAt(jlistIndex).toString();
+        }
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescriptionPartners(javax.swing.JList<String> jlist) {
+        jlistIndex = jlist.getSelectedIndex();
+        
+        if (jlistIndex >= 0) {
+            this.description = listModelPartnersDesc.getElementAt(jlistIndex).toString();
+        }
+    }
     
+    public void setDescriptionActivities(javax.swing.JList<String> jlist) {
+        jlistIndex = jlist.getSelectedIndex();
+        
+        if (jlistIndex >= 0) {
+            this.description = listModelActivitiesDesc.getElementAt(jlistIndex).toString();
+        }
+    }
+    
+    public void setDescriptionResources(javax.swing.JList<String> jlist) {
+        jlistIndex = jlist.getSelectedIndex();
+        
+        if (jlistIndex >= 0) {
+            this.description = listModelResourcesDesc.getElementAt(jlistIndex).toString();
+        }
+    }
+    
+    public void setDescriptionPurpose(javax.swing.JList<String> jlist) {
+        jlistIndex = jlist.getSelectedIndex();
+        
+        if (jlistIndex >= 0) {
+            this.description = listModelPurposeDesc.getElementAt(jlistIndex).toString();
+        }
+    }
+    
+    public void setDescriptionChannels(javax.swing.JList<String> jlist) {
+        jlistIndex = jlist.getSelectedIndex();
+        
+        if (jlistIndex >= 0) {
+            this.description = listModelChannelsDesc.getElementAt(jlistIndex).toString();
+        }
+    }
+    
+    public void setDescriptionClients(javax.swing.JList<String> jlist) {
+        jlistIndex = jlist.getSelectedIndex();
+        
+        if (jlistIndex >= 0) {
+            this.description = listModelClientsDesc.getElementAt(jlistIndex).toString();
+        }
+    }
+    
+    public void setDescriptionStreams(javax.swing.JList<String> jlist) {
+        jlistIndex = jlist.getSelectedIndex();
+        
+        if (jlistIndex >= 0) {
+            this.description = listModelStreamsDesc.getElementAt(jlistIndex).toString();
+        }
+    }
+    
+    public void setDescriptionCosts(javax.swing.JList<String> jlist) {
+        jlistIndex = jlist.getSelectedIndex();
+        
+        if (jlistIndex >= 0) {
+            this.description = listModelCostsDesc.getElementAt(jlistIndex).toString();
+        }
+    }
+    
+    public void setDescriptionRelations(javax.swing.JList<String> jlist) {
+        jlistIndex = jlist.getSelectedIndex();
+        
+        if (jlistIndex >= 0) {
+            this.description = listModelRelationsDesc.getElementAt(jlistIndex).toString();
+        }
+    }
+    
+    
+    public void showDetails(String header, String description) {
+        Details details = new Details(header, description);
+        details.setVisible(true);
+    }
+    
+    
+
     /**
      * Creates new form canvasModel
      */
     public CanvasModel() {
         initComponents();
-        jListPartners.setModel(listModel);
+        jListPartners.setModel(listModelPartners);
+        jListActivities.setModel(listModelActivities);
+        jListResources.setModel(listModelResources);
+        jListPurpose.setModel(listModelPurpose);
+        jListRelation.setModel(listModelRelations);
+        jListChannels.setModel(listModelChannels);
+        jListClients.setModel(listModelClients);
+        jListStreams.setModel(listModelStreams);
+        jListCosts.setModel(listModelCosts);
+        
     }
     
     /**
@@ -137,10 +281,25 @@ public class CanvasModel extends javax.swing.JFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jaime/canvas/images/clientes.png"))); // NOI18N
 
         btnClients.setText("Detalles");
+        btnClients.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientsActionPerformed(evt);
+            }
+        });
 
         deleteClient.setText("-");
+        deleteClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteClientActionPerformed(evt);
+            }
+        });
 
         addClient.setText("+");
+        addClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addClientActionPerformed(evt);
+            }
+        });
 
         jListClients.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -167,8 +326,8 @@ public class CanvasModel extends javax.swing.JFrame {
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20))
                     .addGroup(panelClientsLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3)
-                        .addContainerGap())))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         panelClientsLayout.setVerticalGroup(
             panelClientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,6 +353,11 @@ public class CanvasModel extends javax.swing.JFrame {
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jaime/canvas/images/fuentes_ingresos.png"))); // NOI18N
 
         btnStreams.setText("Detalles");
+        btnStreams.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStreamsActionPerformed(evt);
+            }
+        });
 
         addStream.setText("+");
         addStream.addActionListener(new java.awt.event.ActionListener() {
@@ -203,6 +367,11 @@ public class CanvasModel extends javax.swing.JFrame {
         });
 
         deleteStream.setText("-");
+        deleteStream.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteStreamActionPerformed(evt);
+            }
+        });
 
         jListStreams.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -219,13 +388,13 @@ public class CanvasModel extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnStreams)
                 .addGap(32, 32, 32)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane7)
+                .addGap(18, 18, 18)
                 .addGroup(panelStreamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(addStream, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteStream, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel9)
                 .addContainerGap())
         );
         panelStreamsLayout.setVerticalGroup(
@@ -255,6 +424,11 @@ public class CanvasModel extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jaime/canvas/images/recursos_clave.png"))); // NOI18N
 
         btnResources.setText("Detalles");
+        btnResources.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResourcesActionPerformed(evt);
+            }
+        });
 
         jListResources.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -264,8 +438,18 @@ public class CanvasModel extends javax.swing.JFrame {
         jScrollPane8.setViewportView(jListResources);
 
         deleteResources.setText("-");
+        deleteResources.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteResourcesActionPerformed(evt);
+            }
+        });
 
         addResources.setText("+");
+        addResources.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addResourcesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelResourcesLayout = new javax.swing.GroupLayout(panelResources);
         panelResources.setLayout(panelResourcesLayout);
@@ -276,7 +460,7 @@ public class CanvasModel extends javax.swing.JFrame {
                 .addGroup(panelResourcesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelResourcesLayout.createSequentialGroup()
                         .addComponent(btnResources)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addComponent(addResources, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(deleteResources, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -291,12 +475,13 @@ public class CanvasModel extends javax.swing.JFrame {
             .addGroup(panelResourcesLayout.createSequentialGroup()
                 .addGroup(panelResourcesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelResourcesLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panelResourcesLayout.createSequentialGroup()
                         .addGap(11, 11, 11)
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18))
+                    .addGroup(panelResourcesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(panelResourcesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnResources)
                     .addComponent(addResources)
@@ -311,10 +496,25 @@ public class CanvasModel extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jaime/canvas/images/actividades_clave.png"))); // NOI18N
 
         btnActivities.setText("Detalles");
+        btnActivities.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActivitiesActionPerformed(evt);
+            }
+        });
 
         deleteActivity.setText("-");
+        deleteActivity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActivityActionPerformed(evt);
+            }
+        });
 
         addActivity.setText("+");
+        addActivity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addActivityActionPerformed(evt);
+            }
+        });
 
         jListActivities.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -330,33 +530,33 @@ public class CanvasModel extends javax.swing.JFrame {
             .addGroup(panelActivitiesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelActivitiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelActivitiesLayout.createSequentialGroup()
+                    .addComponent(jScrollPane10)
+                    .addGroup(panelActivitiesLayout.createSequentialGroup()
+                        .addComponent(btnActivities)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelActivitiesLayout.createSequentialGroup()
                         .addComponent(addActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2))
-                    .addGroup(panelActivitiesLayout.createSequentialGroup()
-                        .addComponent(btnActivities)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane10))
+                        .addComponent(jLabel2)))
                 .addContainerGap())
         );
         panelActivitiesLayout.setVerticalGroup(
             panelActivitiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelActivitiesLayout.createSequentialGroup()
                 .addGroup(panelActivitiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
                     .addGroup(panelActivitiesLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panelActivitiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addActivity)
                             .addComponent(deleteActivity))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnActivities)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelRelations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Relación con el cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
@@ -366,10 +566,25 @@ public class CanvasModel extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jaime/canvas/images/rel_cliente.png"))); // NOI18N
 
         btnRelations.setText("Detalles");
+        btnRelations.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRelationsActionPerformed(evt);
+            }
+        });
 
         deleteRelation.setText("-");
+        deleteRelation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteRelationActionPerformed(evt);
+            }
+        });
 
         addRelation.setText("+");
+        addRelation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addRelationActionPerformed(evt);
+            }
+        });
 
         jListRelation.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -386,21 +601,18 @@ public class CanvasModel extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelRelationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRelationsLayout.createSequentialGroup()
-                        .addComponent(btnRelations)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panelRelationsLayout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(addRelation, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(deleteRelation, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelRelationsLayout.createSequentialGroup()
+                        .addGroup(panelRelationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnRelations)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(panelRelationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelRelationsLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane5)
-                    .addGap(5, 5, 5)))
         );
         panelRelationsLayout.setVerticalGroup(
             panelRelationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,14 +624,11 @@ public class CanvasModel extends javax.swing.JFrame {
                         .addGroup(panelRelationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addRelation)
                             .addComponent(deleteRelation))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRelations)
                 .addContainerGap())
-            .addGroup(panelRelationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRelationsLayout.createSequentialGroup()
-                    .addContainerGap(74, Short.MAX_VALUE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(49, 49, 49)))
         );
 
         panelChannels.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Canales", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
@@ -443,8 +652,18 @@ public class CanvasModel extends javax.swing.JFrame {
         jScrollPane4.setViewportView(jListChannels);
 
         deleteChannel.setText("-");
+        deleteChannel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteChannelActionPerformed(evt);
+            }
+        });
 
         addChannel.setText("+");
+        addChannel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addChannelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelChannelsLayout = new javax.swing.GroupLayout(panelChannels);
         panelChannels.setLayout(panelChannelsLayout);
@@ -453,24 +672,23 @@ public class CanvasModel extends javax.swing.JFrame {
             .addGroup(panelChannelsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelChannelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane4)
                     .addGroup(panelChannelsLayout.createSequentialGroup()
-                        .addGroup(panelChannelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnChannels)
-                            .addGroup(panelChannelsLayout.createSequentialGroup()
-                                .addComponent(addChannel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(deleteChannel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(btnChannels)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelChannelsLayout.createSequentialGroup()
+                        .addComponent(addChannel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteChannel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)))
                 .addContainerGap())
         );
         panelChannelsLayout.setVerticalGroup(
             panelChannelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelChannelsLayout.createSequentialGroup()
                 .addGroup(panelChannelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
                     .addGroup(panelChannelsLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panelChannelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -490,13 +708,28 @@ public class CanvasModel extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jaime/canvas/images/propuesta_valor.png"))); // NOI18N
 
         btnProposal.setText("Detalles");
+        btnProposal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProposalActionPerformed(evt);
+            }
+        });
 
         deleteProposal.setText("-");
         deleteProposal.setMaximumSize(new java.awt.Dimension(22, 31));
         deleteProposal.setMinimumSize(new java.awt.Dimension(22, 31));
         deleteProposal.setPreferredSize(new java.awt.Dimension(22, 31));
+        deleteProposal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteProposalActionPerformed(evt);
+            }
+        });
 
         addProposal.setText("+");
+        addProposal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addProposalActionPerformed(evt);
+            }
+        });
 
         jListPurpose.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -519,9 +752,10 @@ public class CanvasModel extends javax.swing.JFrame {
                         .addGap(18, 18, Short.MAX_VALUE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelProposalLayout.createSequentialGroup()
-                        .addComponent(btnProposal)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(panelProposalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnProposal)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelProposalLayout.setVerticalGroup(
@@ -549,6 +783,11 @@ public class CanvasModel extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jaime/canvas/images/socios_clave.png"))); // NOI18N
 
         btnPartners.setText("Detalles");
+        btnPartners.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPartnersActionPerformed(evt);
+            }
+        });
 
         addPartner.setText("+");
         addPartner.addActionListener(new java.awt.event.ActionListener() {
@@ -558,6 +797,11 @@ public class CanvasModel extends javax.swing.JFrame {
         });
 
         deletePartner.setText("-");
+        deletePartner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletePartnerActionPerformed(evt);
+            }
+        });
 
         jListPartners.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -578,27 +822,27 @@ public class CanvasModel extends javax.swing.JFrame {
                         .addGap(0, 84, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPartnersLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(panelPartnersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelPartnersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelPartnersLayout.createSequentialGroup()
                                 .addComponent(addPartner, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(deletePartner, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel10)))))
                 .addContainerGap())
         );
         panelPartnersLayout.setVerticalGroup(
             panelPartnersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPartnersLayout.createSequentialGroup()
-                .addGroup(panelPartnersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelPartnersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelPartnersLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panelPartnersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addPartner)
-                            .addComponent(deletePartner))))
-                .addGap(18, 18, 18)
+                            .addComponent(deletePartner)))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnPartners)
@@ -612,8 +856,18 @@ public class CanvasModel extends javax.swing.JFrame {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jaime/canvas/images/estructura_costos.png"))); // NOI18N
 
         btnCosts.setText("Detalles");
+        btnCosts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCostsActionPerformed(evt);
+            }
+        });
 
         deleteCost.setText("-");
+        deleteCost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteCostActionPerformed(evt);
+            }
+        });
 
         addCost.setText("+");
         addCost.addActionListener(new java.awt.event.ActionListener() {
@@ -637,17 +891,14 @@ public class CanvasModel extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnCosts)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(panelCostsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(addCost, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteCost, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addContainerGap())
-            .addGroup(panelCostsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelCostsLayout.createSequentialGroup()
-                    .addGap(139, 139, 139)
-                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(149, Short.MAX_VALUE)))
         );
         panelCostsLayout.setVerticalGroup(
             panelCostsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -659,15 +910,13 @@ public class CanvasModel extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addGroup(panelCostsLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(addCost)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(deleteCost)))
+                        .addGroup(panelCostsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelCostsLayout.createSequentialGroup()
+                                .addComponent(addCost)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(deleteCost)))))
                 .addContainerGap())
-            .addGroup(panelCostsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelCostsLayout.createSequentialGroup()
-                    .addGap(16, 16, 16)
-                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(18, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -681,8 +930,8 @@ public class CanvasModel extends javax.swing.JFrame {
                         .addComponent(panelPartners, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelActivities, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                            .addComponent(panelResources, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
+                            .addComponent(panelActivities, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                            .addComponent(panelResources, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelProposal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -690,12 +939,12 @@ public class CanvasModel extends javax.swing.JFrame {
                             .addComponent(panelChannels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panelRelations, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelClients, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
+                        .addComponent(panelClients, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelCosts, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+                        .addComponent(panelCosts, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelStreams, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)))
-                .addGap(9, 9, 9))
+                        .addComponent(panelStreams, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -725,27 +974,211 @@ public class CanvasModel extends javax.swing.JFrame {
 
     private void btnChannelsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChannelsActionPerformed
         // TODO add your handling code here:
+        setHeader(jListChannels, listModelChannels);
+        setDescriptionChannels(jListChannels);
+        showDetails(header, description);
     }//GEN-LAST:event_btnChannelsActionPerformed
 
     private void addCostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCostActionPerformed
         // TODO add your handling code here:
+        openDialog(dialog);
+        sectionId = 8;
     }//GEN-LAST:event_addCostActionPerformed
 
     private void addStreamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStreamActionPerformed
         // TODO add your handling code here:
+        openDialog(dialog);
+        sectionId = 7;
     }//GEN-LAST:event_addStreamActionPerformed
 
     private void addPartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPartnerActionPerformed
         // TODO add your handling code here:
         openDialog(dialog);
+        sectionId = 0;
     }//GEN-LAST:event_addPartnerActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         // TODO add your handling code here:
-        if(dialog.getListFlag())
-            addListElements(getDialogHeader(dialog));
-        dialog.setListFlag(false);
+        
+        if(dialog.getfocusStatus())
+            switch(sectionId) {
+                case 0:
+                    addListHeader(getDialogHeader(dialog), listModelPartners);
+                    addListDescription(getDialogDescription(dialog), listModelPartnersDesc);
+                    break;
+                case 1:
+                    addListHeader(getDialogHeader(dialog), listModelActivities);
+                    addListDescription(getDialogDescription(dialog), listModelActivitiesDesc);
+                    break;
+                case 2:
+                    addListHeader(getDialogHeader(dialog), listModelResources);
+                    addListDescription(getDialogDescription(dialog), listModelResourcesDesc);
+                    break;
+                case 3:
+                    addListHeader(getDialogHeader(dialog), listModelPurpose);
+                    addListDescription(getDialogDescription(dialog), listModelPurposeDesc);
+                    break;
+                case 4:
+                    addListHeader(getDialogHeader(dialog), listModelRelations);
+                    addListDescription(getDialogDescription(dialog), listModelRelationsDesc);
+                    break;
+                case 5:
+                    addListHeader(getDialogHeader(dialog), listModelChannels);
+                    addListDescription(getDialogDescription(dialog), listModelChannelsDesc);
+                    break;
+                case 6:
+                    addListHeader(getDialogHeader(dialog), listModelClients);
+                    addListDescription(getDialogDescription(dialog), listModelClientsDesc);
+                    break;
+                case 7:
+                    addListHeader(getDialogHeader(dialog), listModelStreams);
+                    addListDescription(getDialogDescription(dialog), listModelStreamsDesc);
+                    break;
+                case 8:
+                    addListHeader(getDialogHeader(dialog), listModelCosts);
+                    addListDescription(getDialogDescription(dialog), listModelCostsDesc);
+                    break;
+                    
+            }    
+        dialog.setfocusStatus(false);
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void addActivityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActivityActionPerformed
+        // TODO add your handling code here:
+        openDialog(dialog);
+        sectionId = 1;
+    }//GEN-LAST:event_addActivityActionPerformed
+
+    private void addProposalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProposalActionPerformed
+        // TODO add your handling code here:
+        openDialog(dialog);
+        sectionId = 3;
+    }//GEN-LAST:event_addProposalActionPerformed
+
+    private void addResourcesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addResourcesActionPerformed
+        // TODO add your handling code here:
+        openDialog(dialog);
+        sectionId = 2;
+    }//GEN-LAST:event_addResourcesActionPerformed
+
+    private void addRelationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRelationActionPerformed
+        // TODO add your handling code here:
+        openDialog(dialog);
+        sectionId = 4;
+    }//GEN-LAST:event_addRelationActionPerformed
+
+    private void addChannelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addChannelActionPerformed
+        // TODO add your handling code here:
+        openDialog(dialog);
+        sectionId = 5;
+    }//GEN-LAST:event_addChannelActionPerformed
+
+    private void addClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClientActionPerformed
+        // TODO add your handling code here:
+        openDialog(dialog);
+        sectionId = 6;
+    }//GEN-LAST:event_addClientActionPerformed
+
+    private void deletePartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePartnerActionPerformed
+        // TODO add your handling code here:
+        deleteListElements(jListPartners, listModelPartners);
+    }//GEN-LAST:event_deletePartnerActionPerformed
+
+    private void deleteActivityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActivityActionPerformed
+        // TODO add your handling code here:
+        deleteListElements(jListActivities, listModelActivities);
+    }//GEN-LAST:event_deleteActivityActionPerformed
+
+    private void deleteProposalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProposalActionPerformed
+        // TODO add your handling code here:
+        deleteListElements(jListPurpose, listModelPurpose);
+    }//GEN-LAST:event_deleteProposalActionPerformed
+
+    private void deleteResourcesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteResourcesActionPerformed
+        // TODO add your handling code here:
+        deleteListElements(jListResources, listModelResources);
+    }//GEN-LAST:event_deleteResourcesActionPerformed
+
+    private void deleteRelationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRelationActionPerformed
+        // TODO add your handling code here:
+        deleteListElements(jListRelation, listModelRelations);
+    }//GEN-LAST:event_deleteRelationActionPerformed
+
+    private void deleteChannelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteChannelActionPerformed
+        // TODO add your handling code here:
+        deleteListElements(jListChannels, listModelChannels);
+    }//GEN-LAST:event_deleteChannelActionPerformed
+
+    private void deleteClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteClientActionPerformed
+        // TODO add your handling code here:
+        deleteListElements(jListClients, listModelClients);
+    }//GEN-LAST:event_deleteClientActionPerformed
+
+    private void deleteStreamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStreamActionPerformed
+        // TODO add your handling code here:
+        deleteListElements(jListStreams, listModelStreams);
+    }//GEN-LAST:event_deleteStreamActionPerformed
+
+    private void deleteCostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCostActionPerformed
+        // TODO add your handling code here:
+        deleteListElements(jListCosts, listModelCosts);
+    }//GEN-LAST:event_deleteCostActionPerformed
+
+    private void btnPartnersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPartnersActionPerformed
+        // TODO add your handling code here:
+        setHeader(jListPartners, listModelPartners);
+        setDescriptionPartners(jListPartners);
+        showDetails(header, description);
+    }//GEN-LAST:event_btnPartnersActionPerformed
+
+    private void btnActivitiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivitiesActionPerformed
+        // TODO add your handling code here:
+        setHeader(jListActivities, listModelActivities);
+        setDescriptionActivities(jListActivities);
+        showDetails(header, description);
+    }//GEN-LAST:event_btnActivitiesActionPerformed
+
+    private void btnResourcesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResourcesActionPerformed
+        // TODO add your handling code here:
+        setHeader(jListResources, listModelResources);
+        setDescriptionResources(jListResources);
+        showDetails(header, description);
+    }//GEN-LAST:event_btnResourcesActionPerformed
+
+    private void btnProposalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProposalActionPerformed
+        // TODO add your handling code here:
+        setHeader(jListPurpose, listModelPurpose);
+        setDescriptionPurpose(jListPurpose);
+        showDetails(header, description);
+    }//GEN-LAST:event_btnProposalActionPerformed
+
+    private void btnRelationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelationsActionPerformed
+        // TODO add your handling code here:
+        setHeader(jListRelation, listModelRelations);
+        setDescriptionRelations(jListRelation);
+        showDetails(header, description);
+    }//GEN-LAST:event_btnRelationsActionPerformed
+
+    private void btnClientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientsActionPerformed
+        // TODO add your handling code here:
+        setHeader(jListClients, listModelClients);
+        setDescriptionClients(jListClients);
+        showDetails(header, description);
+    }//GEN-LAST:event_btnClientsActionPerformed
+
+    private void btnStreamsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStreamsActionPerformed
+        // TODO add your handling code here:
+        setHeader(jListStreams, listModelStreams);
+        setDescriptionStreams(jListStreams);
+        showDetails(header, description);
+    }//GEN-LAST:event_btnStreamsActionPerformed
+
+    private void btnCostsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCostsActionPerformed
+        // TODO add your handling code here:
+        setHeader(jListCosts, listModelCosts);
+        setDescriptionCosts(jListCosts);
+        showDetails(header, description);
+    }//GEN-LAST:event_btnCostsActionPerformed
 
     
     /**
